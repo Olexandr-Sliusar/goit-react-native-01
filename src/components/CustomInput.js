@@ -9,18 +9,22 @@ export default function CustomInput({
 }) {
   const [onFocus, setOnFocus] = useState(false);
   return (
-    <TextInput
-      style={[styles.inputStyles, onFocus && styles.inputStylesOnFocus]}
-      onChangeText={(text) => setValue(text)}
-      value={value}
-      placeholder={placeholder}
-      secureTextEntry={secureTextEntry}
-      onFocus={() => {
-        setOnFocus(true);
-        keyboardShow(true);
-      }}
-      onBlur={() => setOnFocus(false)}
-    ></TextInput>
+    <KeyboardAvoidingView
+      behavior={Platform.OS == "ios" ? "padding" : "height"}
+    >
+      <TextInput
+        style={[styles.inputStyles, onFocus && styles.inputStylesOnFocus]}
+        onChangeText={(text) => setValue(text)}
+        value={value}
+        placeholder={placeholder}
+        secureTextEntry={secureTextEntry}
+        onFocus={() => {
+          setOnFocus(true);
+          keyboardShow(true);
+        }}
+        onBlur={() => setOnFocus(false)}
+      ></TextInput>
+    </KeyboardAvoidingView>
   );
 }
 const styles = StyleSheet.create({
